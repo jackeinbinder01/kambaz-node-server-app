@@ -11,8 +11,6 @@ const module = {
     name: "NodeJS Module",
     description: "Custom module description",
     course:"Web Development",
-    completed: false,
-    score: 0,
 }
 export default function WorkingWithObjects(app) {
     // assignments
@@ -27,6 +25,17 @@ export default function WorkingWithObjects(app) {
         assignment.title = newTitle;
         res.json(assignment);
     });
+    app.get("/lab5/assignment/completed/:isCompleted", (req, res) => {
+        const { isCompleted } = req.params;
+        assignment.completed = isCompleted === "true";
+        res.json(assignment);
+    });
+    app.get("/lab5/assignment/score/:newScore", (req, res) => {
+        const { newScore } = req.params;
+        assignment.score = parseInt(newScore);
+        res.json(assignment);
+    });
+
     // modules
     app.get("/lab5/module", (req, res) => {
         res.json(module);
@@ -44,15 +53,4 @@ export default function WorkingWithObjects(app) {
         module.description = newDescription;
         res.json(module);
     });
-    app.get("/lab5/module/completed/:isCompleted", (req, res) => {
-        const { isCompleted } = req.params;
-        module.completed = isCompleted === "true";
-        res.json(module);
-    });
-    app.get("/lab5/module/score/:newScore", (req, res) => {
-        const { newScore } = req.params;
-        module.score = parseInt(newScore);
-        res.json(module);
-    });
-
 };
