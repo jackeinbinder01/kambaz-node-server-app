@@ -14,8 +14,12 @@ export default function CourseRoutes(app) {
         res.send(status);
     });
     app.post("/api/courses", async (req, res) => {
-        const newCourse = await dao.createCourse(req.body);
-        res.json(newCourse);
+        const course = await dao.createCourse(req.body);
+        const currentUser = req.session["currentUser"];
+        if (currentUser) {
+            await enrollmentsDao.enrollUserInCourse(currentUser._id, course._id);
+        }
+        res.json(course);
     });
     app.put("/api/courses/:courseId", async (req, res) => {
         const { courseId } = req.params;
@@ -58,4 +62,12 @@ export default function CourseRoutes(app) {
         const assignments = await assignmentsDao.findAssignmentsForCourse(courseId);
         res.json(assignments);
     });
+
+    const findUsersForCourse = async (req, res) => {
+        const { cid } = req.params;
+        const users = await enrollmentsDao.findUsersForCourse(cid);
+        res.json(users);
+      };
+      app.get("/api/courses/:cid/users", findUsersForCourse);
+
 }

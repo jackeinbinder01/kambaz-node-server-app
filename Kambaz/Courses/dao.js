@@ -13,13 +13,6 @@ export function deleteCourse(courseId) {
     return model.deleteOne({ _id: courseId });
 };
 
-export function findCoursesForEnrolledUser(userId) {
-    const { courses, enrollments } = model.find();
-    const enrolledCourses = courses.filter((course) => 
-        enrollments.some((enrollment) => enrollment.user === userId && enrollment.course === course._id));
-    return enrolledCourses;
-};
-
 export function updateCourse(courseId, courseUpdates) {
     return model.updateOne({ _id: courseId }, { $set: courseUpdates });
 };

@@ -1,4 +1,4 @@
-import { model } from "mongoose";
+import model from "./model.js"
 import { v4 as uuidv4 } from "uuid";
 
 export function findModulesForCourse(courseId) {
@@ -13,5 +13,5 @@ export function updateModule(moduleId, moduleUpdates) {
     return model.updateOne({ _id: moduleId }, moduleUpdates);
 }
 export function deleteModule(moduleId) {
-    return module.deleteOne({ _id: moduleId});
+    return model.deleteOne({ _id: moduleId});
 };

@@ -6,12 +6,13 @@ export async function findCoursesForUser(userId) {
 }
 
 export async function findUsersForCourse(courseId) {
-    const enrollments = await model.find({ course: courseId }).populate("user");
+    console.log("ENROLLMENTS:", JSON.stringify(enrollments, null, 2));
     return enrollments.map((enrollment) => enrollment.user);
 };
 
 export async function enrollUserInCourse(user, course) {
-    return model.create({ user, course, _id: `${user}-${course}` });
+    const newEnrollment = { user, course, _id: `${user}-${course}` }
+    return model.create(newEnrollment);
 };
 
 export function unenrollUserFromCourse(user, course) {
