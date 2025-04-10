@@ -6,7 +6,7 @@ export async function findCoursesForUser(userId) {
 }
 
 export async function findUsersForCourse(courseId) {
-    console.log("ENROLLMENTS:", JSON.stringify(enrollments, null, 2));
+    const enrollments = await model.find({ course: courseId }).populate("user");
     return enrollments.map((enrollment) => enrollment.user);
 };
 
