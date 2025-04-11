@@ -6,6 +6,8 @@ import coursesModel from "./Kambaz/Courses/model.js";
 import enrollmentsModel from "./Kambaz/Enrollments/model.js";
 import modulesModel from "./Kambaz/Modules/model.js";
 import lessonsModel from "./Kambaz/Lessons/model.js";
+import assignmentsModel from "./Kambaz/Assignments/model.js";
+
 import assignments from "./Kambaz/Database/assignments.js"
 import courses from "./Kambaz/Database/courses.js"
 import modules from "./Kambaz/Database/modules.js"
@@ -26,14 +28,14 @@ const refresh = async () => {
         await enrollmentsModel.deleteMany({});
         await modulesModel.deleteMany({});
         await lessonsModel.deleteMany({});
-
+        await assignmentsModel.deleteMany({});
         
-        // await assignmentsModel.insertMany(assignments);
         await usersModel.insertMany(users);
         await coursesModel.insertMany(courses);
         await modulesModel.insertMany(modules);
         await lessonsModel.insertMany(lessons);
         await enrollmentsModel.insertMany(enrollments);
+        await assignmentsModel.insertMany(assignments);
 
         console.log("Refresh success");
         process.exit();
